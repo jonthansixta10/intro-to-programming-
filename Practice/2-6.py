@@ -8,8 +8,9 @@ hello()
 
 
 def add(x = 0, y = 0): #this functions purpose is to add two numbers
-    print(x+y)
+    return x + y
 
-add(2, 10)
+
+print(add(2, 10))
 
 
