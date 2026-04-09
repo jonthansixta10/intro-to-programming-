@@ -9,3 +9,5 @@ print(answer2 > 12)
 print(answer3 == 150)
 print(answer4 >= 750)
 print(answer5 <= 966)
+
+
