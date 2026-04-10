@@ -24,7 +24,7 @@ if  question4 == ("peter pettigrew"):
     tally_score +=1
 else:
     print("incorrect")
-question5 = input("what is the name of the snake language in harry potter")
+question5 = input("what is the name of the snake language in harry potter\n->")
 if question5 == ("parseltongue"):
     print("correct")
     tally_score +=1 
@@ -32,6 +32,6 @@ else:
     print("incorrect")
 
 
-print("score", + tally_score,"/5")
+print("final score", + tally_score,"/5")
 
 
