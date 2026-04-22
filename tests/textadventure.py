@@ -1,6 +1,6 @@
 import random
 def start_adventure():
-    print("you are playing your favoriete game, arc raiders")
+    print("you are playing your favorite game, arc raiders")
     gamer_tag = input("please enter your gamer tag to continue\n->")
     print(f"welcome, {gamer_tag}!")
     choose_teammates()
@@ -28,48 +28,48 @@ def start_game(num_teammates):
     print(f"\nStarting game with {num_teammates} teammate(s)!")
     print("Get ready for battle!")
     print("choose your loadout")
-    load_out()
+    load_out(num_teammates)
 
 def randomize_loadout():
     """Generate a random loadout and return it"""
     loadouts = [
-        "ferro, 1 shield rechargers and 2 bandages and 2 snap gernades",
+        "ferro, 1 shield rechargers and 2 bandages and 2 snap grenades",
         "sticher, 1 shield rechargers and 2 bandages and 1 defibulator",
         "kettle, 1 shield rechargers and 2 bandages and 2 jolt mines"
     ]
     return random.choice(loadouts)
 
-def load_out():
-    print("1. custom loudout")
-    print("2.free loudout")
+def load_out(num_teammates):
+    print("1. custom loadout")
+    print("2.free loadout")
     choice = input("> ")
     if choice == "1":
         print("you have chosen the custom loadout")
-        custom_loot()
+        custom_loot(num_teammates)
     elif choice == "2":
         print("you have chosen the free loadout")
         random_loadout = randomize_loadout()
         print(f"Your random loadout is: {random_loadout}")
-        choose_event(random_loadout)
+        choose_event(num_teammates, random_loadout)
     else:
         print("invalid choice, please try again")
-        load_out()
+        load_out(num_teammates)
 def custom_loot():
-    print("pick you loudout")
-    print("1. a ferro 2 with a kettle two and 3 shield rechargers and 5 bandages and 3 snap gernades")
-    print("2. a osprey with a sticher 2 and 2 shield rechargers and 3 bandages and 2 smoke gernades")
-    print("3. a anvil 2 and a torento with 5 shield rechargers and 5 bandages and 5 snap gernades")
+    print("pick you loadout")
+    print("1. a ferro 2 with a kettle two and 3 shield rechargers and 5 bandages and 3 snap grenades")
+    print("2. a osprey with a sticher 2 and 2 shield rechargers and 3 bandages and 2 smoke grenades")
+    print("3. a anvil 2 and a torento with 5 shield rechargers and 5 bandages and 5 snap grenades")
     choice = input("> ")
     if choice == "1":
-        loadout = "ferro 2 with a kettle two and 3 shield rechargers and 5 bandages and 3 snap gernades"
+        loadout = "ferro 2 with a kettle two and 3 shield rechargers and 5 bandages and 3 snap grenades"
         print("you have chosen the ferro 2 loadout")
         choose_event(loadout)
     elif choice == "2":
-        loadout = "osprey with a sticher 2 and 2 shield rechargers and 3 bandages and 2 smoke gernades"
+        loadout = "osprey with a sticher 2 and 2 shield rechargers and 3 bandages and 2 smoke grenades"
         print("you have chosen the osprey loadout")
         choose_event(loadout)
     elif choice == "3":
-        loadout = "anvil 2 and a torento with 5 shield rechargers and 5 bandages and 5 snap gernades"
+        loadout = "anvil 2 and a torento with 5 shield rechargers and 5 bandages and 5 snap grenades"
         print("you have chosen the anvil 2 and torento loadout")
         choose_event(loadout)
     else:
@@ -156,9 +156,9 @@ def buried_city_hurricane(loadout):
 
     def choose_loot_spot(loadout):
         print("where do you want to go looting?")
-        print("1. the new District, it is a high tier loot spot but that means that thier is a greater chance of running into other players")
+        print("1. the new District, it is a high tier loot spot but that means that their is a greater chance of running into other players")
         print("2. the old town, it has a medium tier loot but that means that there is a lower chance of running into other players")
-        print("3. the west villige, it has meduim tier loot and wis on the outsides of the map so the chance of running into plays is very low")
+        print("3. the west village, it has medium tier loot and was on the outsides of the map so the chance of running into players is very low")
         choice = input("> ")
         if choice == "1":
             new_district(loadout)
@@ -169,7 +169,7 @@ def buried_city_hurricane(loadout):
 
     def new_district(loadout):
         print("you have entered the new District")
-        print("you hear a raider flare go off in the distance meaning a player jsut got nocked")
+        print("you hear a raider flare go off in the distance meaning a player just got knocked")
         print("you have a choice to make")
         print("1. go to the flare and try to get the players loot")
         print("2. ignore the flare and keep looting")
@@ -184,7 +184,7 @@ def buried_city_hurricane(loadout):
             choice = input("> ")
             if choice == "1":
                 print("you have chosen to sneak up on the player")
-                print("you successfully sneak up on the player and kill them, you get their loot and your invinotry is now full of very good items!")
+                fight_outcome(loadout)
             elif choice == "2":
                 print("you have chosen to outplay the player")
                 print("you try to outplay the player but they are too good and they end up killing you, better luck next time!")
@@ -200,5 +200,11 @@ def buried_city_hurricane(loadout):
         else:
             print("invalid choice, please try again")
             new_district(loadout)
+        def fight_outcome(loadout):
+            custom_loadout = randomize.choice([win, win, win, lose])
+            if custom_loadout == "win":
+                print("you have won the fight and you have looted the players body, you end up finding some good loot and your inventory is now full!")
+            elif custom_loadout == "lose":
+                print("you have lost the fight and you have been killed by the player, better luck next time!")
     
 start_adventure()
