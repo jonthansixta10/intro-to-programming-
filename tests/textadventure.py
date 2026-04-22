@@ -100,67 +100,44 @@ def choose_map(num_teammates, event_type, loadout=None):
     print(" choose what map you want to play on")
     if event_type == "hurricane":
         print("1. Buried City")
-        print("2. blue gate")
-        print("3. space port")
         choice = input("> ")
         if choice == "1":
             print("you have chosen Buried City")
             buried_city_hurricane(num_teammates, loadout)
-        elif choice == "2":
-            print("you have chosen blue gate")
-            blue_gate_hurricane(num_teammates, loadout)
-        elif choice == "3":
-            print("you have chosen space port")
-            space_port_hurricane(num_teammates, loadout)
         else:
             print("invalid choice, please try again")
             choose_map(num_teammates, event_type, loadout)
     elif event_type == "closed security":
         print("1. Dam battlegrounds")
-        print("2. blue gate")
-        print("3. Buried City")
         choice = input("> ")
         if choice == "1":
             print("you have chosen dam battlegrounds")
             dam_closed_security(num_teammates, loadout)
-        elif choice == "2":
-            print("you have chosen blue gate")
-            blue_gate_closed_security(num_teammates, loadout)
-        elif choice == "3":
-            print("you have chosen Buried City")
-            buried_city_closed_security(num_teammates, loadout)
         else:
             print("invalid choice, please try again")
             choose_map(num_teammates, event_type, loadout)
     elif event_type == "night raid":
         print("1. Stella Montis")
-        print("2. blue gate")
-        print("3. Buried City")
         choice = input("> ")
         if choice == "1":
             print("you have chosen Stella Montis")
             stella_montis_night_raid(num_teammates, loadout)
-        elif choice == "2":
-            print("you have chosen blue gate")
-            blue_gate_night_raid(num_teammates, loadout)
-        elif choice == "3":
-            print("you have chosen Buried City")
-            buried_city_night_raid(num_teammates, loadout)
         else:
             print("invalid choice, please try again")
             choose_map(num_teammates, event_type, loadout)
+def buried_city_hurricane(num_teammates, loadout):
+    print("you have entered the buried city map for the hurricane event")
+    print("good luck!")
+    choose_loot_spot(num_teammates, loadout)
 def choose_loot_spot(num_teammates, loadout):
     print("where do you want to go looting?")
     print("1. the new District, it is a high tier loot spot but that means that their is a greater chance of running into other players")
     print("2. the old town, it has a medium tier loot but that means that there is a lower chance of running into other players")
-    print("3. the west village, it has medium tier loot and was on the outsides of the map so the chance of running into players is very low")
     choice = input("> ")
     if choice == "1":
-        new_district(num_teammates, loadout)
+            new_district(num_teammates, loadout)
     elif choice == "2":
-        old_town(num_teammates, loadout)
-    elif choice == "3":
-        west_village(num_teammates, loadout)
+            old_town(num_teammates, loadout)
     else:
         print("invalid choice, please try again")
         choose_loot_spot(num_teammates, loadout)
@@ -188,83 +165,121 @@ def new_district(num_teammates, loadout):
             outplay_outcome(num_teammates, loadout)
         elif choice == "3":
             print("you have chosen to run away")
-            print("you run away and you find another loot spot but it is not as good as the one you just left, better luck next time!")
+            print("you run away and you find another loot spot!")
         else:
             print("invalid choice, please try again")
             new_district(num_teammates, loadout)
     elif choice == "2":
         print("you have chosen to ignore the flare")
-        print("you ignore the flare and you keep looting, you end up finding some good loot but you are not in a good position to win the game, better luck next time!")
+        print("you ignore the flare and you keep looting, you end up finding some good loot!")
+        leave_now_or_later(num_teammates, loadout)
     else:
         print("invalid choice, please try again")
         new_district(num_teammates, loadout)
 
 def fight_outcome(num_teammates, loadout):
-    # Determine if loadout is custom or random
+        # Determine if loadout is custom or random
     is_custom = "ferro 2" in loadout or "osprey" in loadout or "anvil 2" in loadout
-    
+        
     if is_custom:
-        # Custom loadouts have better chances
+            # Custom loadout randomizer for fight (sneak)
         if num_teammates == 0:
             outcomes = ["win", "win", "lose", "lose"]
         elif num_teammates == 1:
-            outcomes = ["win", "win", "win", "lose"]
+            outcomes = ["win", "win1", "win", "lose"]
         elif num_teammates == 2:
-            outcomes = ["win", "win", "win", "lose"]
+            outcomes = ["win", "win", "win1", "lose"]
         else:
-            outcomes = ["win", "win", "win", "win"]  # default
+            outcomes = ["win1", "win", "win", "lose"]  # default
     else:
-        # Random loadouts have original chances
+            # Free loadout randomizer for fight (sneak)
         if num_teammates == 0:
             outcomes = ["win", "lose", "lose", "lose"]
         elif num_teammates == 1:
-            outcomes = ["win1", "win", "lose", "lose"]
+            outcomes = ["win1", "win1", "lose", "lose"]
         elif num_teammates == 2:
             outcomes = ["win", "win1", "win", "lose"]
         else:
-            outcomes = ["win", "win", "win", "lose"]  # default
-    
+            outcomes = ["win", "win1", "win", "lose"]  # default
+        
     result = random.choice(outcomes)
     if result == "win":
         print("you have won the fight and you have looted the players body, you end up finding some good loot and your inventory is now full!")
+        leave_now_or_later1(num_teammates, loadout)
     elif result == "win1":
         print("you have won the fight but you got downed in the process, your teammate was able to finish off the player and revive you, you end up finding some good loot and your inventory is now full!")
+        leave_now_or_later1(num_teammates, loadout)
     elif result == "lose":
         print("you have lost the fight and you have been killed by the player, better luck next time!")
 
 def outplay_outcome(num_teammates, loadout):
-    # Outplay has slightly better chances than sneaking up
+        # Determine if loadout is custom or random
     is_custom = "ferro 2" in loadout or "osprey" in loadout or "anvil 2" in loadout
-    
+        
     if is_custom:
-        # Custom loadouts have very good chances for outplay
+            # Custom loadout randomizer for outplay
         if num_teammates == 0:
             outcomes = ["win", "win", "win", "lose"]
         elif num_teammates == 1:
-            outcomes = ["win1", "win", "win", "lose"]
+            outcomes = ["win1", "win", "win1", "lose"]
         elif num_teammates == 2:
             outcomes = ["win", "win1", "win", "lose"]
         else:
             outcomes = ["win", "win", "win", "lose"]  # default
     else:
-        # Random loadouts have improved chances for outplay
+            # Free loadout randomizer for outplay
         if num_teammates == 0:
             outcomes = ["win", "win", "lose", "lose"]
         elif num_teammates == 1:
-            outcomes = ["win", "win", "win", "lose"]
+            outcomes = ["win", "win1", "win", "lose"]
         elif num_teammates == 2:
-            outcomes = ["win", "win", "win", "win"]
+            outcomes = ["win", "win1", "win", "lose"]
         else:
-            outcomes = ["win", "win", "win", "win"]  # default
-    
+            outcomes = ["win1", "win", "win", "lose"]  # default
+        
     result = random.choice(outcomes)
     if result == "win":
         print("you have successfully outplayed the player and eliminated them! You loot their body and find some excellent gear.")
+        leave_now_or_later1(num_teammates, loadout)
     elif result == "win1":
         print("you attempted to outplay the player and while you were successful in eliminating them, you got downed in the process. Your teammate was able to finish off the player and revive you, you end up finding some good loot and your inventory is now full!")
-
+        leave_now_or_later1(num_teammates, loadout)
     elif result == "lose":
         print("you tried to outplay the player but they were too skilled and ended up killing you. Better luck next time!")
+def leave_now_or_later(num_teammates, loadout):
+    print("you have a choice to make you have found some good loot but only 3 exstraction points are left do you want to leave now or risk it and keep looting?")
+    print("1. leave the area now and head for the nearest extraction point")
+    print("2. stay in the area and keep looting, but there is a chance that you might run into other players and might not get to the extraction point in time")
+    choice = input("> ")
+    if choice == "1":
+        print("you have chosen to leave the area")
+        print("you leave the area and you head to the closest extraction point!")
+    elif choice == "2":
+        print("you have chosen to stay in the area")
+        print("you decide to stay in the area and keep looting!")
+    else:
+        print("invalid choice, please try again")
+        leave_now_or_later(num_teammates, loadout)
+def leave_now_or_later1(num_teammates, loadout):
+    print("you have a choice to make you have found some good loot from the team you just killed but only 3 exstraction points are left do you want to leave now or risk it and keep looting?")
+    print("1. leave the area now and head for the nearest extraction point")
+    print("2. stay in the area and keep looting, but there is a chance that you might run into other players and might not get to the extraction point in time")
+    choice = input("> ")
+    if choice == "1":
+        print("you have chosen to leave the area")
+        print("you leave the area and you head to the closest extraction point!")
+    elif choice == "2":
+        print("you have chosen to stay in the area")
+        print("you decide to stay in the area and keep looting!")
+    else:
+        print("invalid choice, please try again")
+        leave_now_or_later1(num_teammates, loadout)
+def old_town(num_teammates, loadout):
+    print("You chose old town. This area is under development. Better luck next time!")
+
+def west_village(num_teammates, loadout):
+    print("You chose west village. This area is under development. Better luck next time!")
+    
 
 def old_town(num_teammates, loadout):
     print("You chose old town. This area is under development. Better luck next time!")
@@ -296,9 +311,6 @@ def blue_gate_night_raid(num_teammates, loadout):
 def buried_city_night_raid(num_teammates, loadout):
     print("You chose buried city for night raid. This area is under development. Better luck next time!")
 
-def buried_city_hurricane(num_teammates, loadout):
-    print("you have entered the buried city map for the hurricane event")
-    print("good luck!")
-    choose_loot_spot(num_teammates, loadout)
+
     
 start_adventure()
