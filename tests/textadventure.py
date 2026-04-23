@@ -166,6 +166,8 @@ def new_district(num_teammates, loadout):
         elif choice == "3":
             print("you have chosen to run away")
             print("you run away and you find another loot spot!")
+            print("you find some good loot and you are now ready to head to the extraction point!")
+            leave_now_or_later(num_teammates, loadout)
         else:
             print("invalid choice, please try again")
             new_district(num_teammates, loadout)
@@ -211,6 +213,13 @@ def fight_outcome(num_teammates, loadout):
         leave_now_or_later1(num_teammates, loadout)
     elif result == "lose":
         print("you have lost the fight and you have been killed by the player, better luck next time!")
+        print("you have lost the game, better luck next time! Do you want to play again?")
+        print("1. yes") 
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
 
 def outplay_outcome(num_teammates, loadout):
         # Determine if loadout is custom or random
@@ -246,6 +255,13 @@ def outplay_outcome(num_teammates, loadout):
         leave_now_or_later1(num_teammates, loadout)
     elif result == "lose":
         print("you tried to outplay the player but they were too skilled and ended up killing you. Better luck next time!")
+        print("you have lost the game, better luck next time! Do you want to play again?")
+        print("1. yes")
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
 def leave_now_or_later(num_teammates, loadout):
     print("you have a choice to make you have found some good loot but only 3 exstraction points are left do you want to leave now or risk it and keep looting?")
     print("1. leave the area now and head for the nearest extraction point")
@@ -254,9 +270,18 @@ def leave_now_or_later(num_teammates, loadout):
     if choice == "1":
         print("you have chosen to leave the area")
         print("you leave the area and you head to the closest extraction point!")
+        extraction_outcome(num_teammates, loadout)
     elif choice == "2":
         print("you have chosen to stay in the area")
         print("you decide to stay in the area and keep looting!")
+        print("while you are looting you run into another player and they end up killing you, better luck next time!")
+        print("you have lost the game, better luck next time! Do you want to play again?")
+        print("1. yes")
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
     else:
         print("invalid choice, please try again")
         leave_now_or_later(num_teammates, loadout)
@@ -268,12 +293,83 @@ def leave_now_or_later1(num_teammates, loadout):
     if choice == "1":
         print("you have chosen to leave the area")
         print("you leave the area and you head to the closest extraction point!")
+        extraction_outcome(num_teammates, loadout)
+def extraction_outcome(num_teammates, loadout):
+    print("you have made it to the extraction point and you are waiting for the helicopter to arrive, but you see a player running towards you, do you want to fight them or see if they are friendly?")
+    print("1. fight the player")
+    print("2. see if the player is friendly")
+    choice = input("> ")
+    if choice == "1":
+        print("you decide to fight the player!")
+        fight_outcome2(num_teammates, loadout)
     elif choice == "2":
-        print("you have chosen to stay in the area")
-        print("you decide to stay in the area and keep looting!")
+        print("you decide to see if the player is friendly!")
+        friendly_outcome(num_teammates, loadout)
     else:
         print("invalid choice, please try again")
         leave_now_or_later1(num_teammates, loadout)
+def friendly_outcome(num_teammates, loadout):
+    print("you approach the player and you ask if they are friendly, they respond by saying that they are friendly and they want to team up with you, do you want to team up with them or do you want to fight them?")
+    print("1. team up with the player")
+    print("2. fight the player")
+    choice = input("> ")
+    if choice == "1":
+        print("you decide to team up with the player!")
+        print("you and the player work together to defend the extraction point and you both successfully extract with your loot, congratulations on winning the game! Do you want to play again?")
+        print("1. yes")
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
+    elif choice == "2":
+        print("you decide to fight the player!")
+        fight_outcome2(num_teammates, loadout)
+    else:
+        print("invalid choice, please try again")
+        friendly_outcome(num_teammates, loadout)
+def fight_outcome2(num_teammates, loadout):
+        # Determine if loadout is custom or random
+    is_custom = "ferro 2" in loadout or "osprey" in loadout or "anvil 2" in loadout
+        
+    if is_custom:
+            # Custom loadout randomizer for fight (sneak)
+        if num_teammates == 0:
+            outcomes = ["win", "win", "lose", "lose"]
+        elif num_teammates == 1:
+            outcomes = ["win", "win1", "win", "lose"]
+        elif num_teammates == 2:
+            outcomes = ["win", "win", "win1", "lose"]
+        else:
+            outcomes = ["win1", "win", "win", "lose"]  # default
+    else:
+            # Free loadout randomizer for fight (sneak)
+        if num_teammates == 0:
+            outcomes = ["win", "lose", "lose", "lose"]
+        elif num_teammates == 1:
+            outcomes = ["win1", "win1", "lose", "lose"]
+        elif num_teammates == 2:
+            outcomes = ["win", "win1", "win", "lose"]
+        else:
+            outcomes = ["win", "win1", "win", "lose"]  # default
+        
+    result = random.choice(outcomes)
+    if result == "win":
+        print("you have won the fight and you have looted the players body, you end up finding some good loot and your inventory is now full!")
+        leave_now(num_teammates, loadout)
+    elif result == "win1":
+        print("you have won the fight but you got downed in the process, your teammate was able to finish off the player and revive you, you end up finding some good loot and your inventory is now full!")
+        leave_now(num_teammates, loadout)
+    elif result == "lose":
+        print("you have lost the fight and you have been killed by the player, better luck next time!")
+def leave_now(num_teammates, loadout):
+    print("you have have now extracted with your loot, congratulations on winning the game! Do you want to play again?")
+    print("1. yes")
+    print("2. no")
+    choice = input("> ")
+    if choice == "1":
+        print("you have chosen to play again")
+        start_adventure()
 def old_town(num_teammates, loadout):
     print("You chose old town. This area is under development. Better luck next time!")
 
