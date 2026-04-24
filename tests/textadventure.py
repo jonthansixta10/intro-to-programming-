@@ -409,6 +409,11 @@ def key_card_room(num_teammates, loadout):
     if choice == "1":
         print("you have chosen to fight the rocketer")
         fight_rocketer(num_teammates, loadout)
+    elif choice == "2":
+        print("you have chosen to run away")
+        print("you run away and you find another loot spot!")
+        print("you find some good loot and you are now ready to head to the extraction point!")
+        leave_now_or_later2(num_teammates, loadout)
 def fight_rocketer(num_teammates, loadout):
         # Determine if loadout is custom or random
     is_custom = "ferro 2" in loadout or "osprey" in loadout or "anvil 2" in loadout
@@ -451,7 +456,7 @@ def fight_rocketer(num_teammates, loadout):
             print("you have chosen to play again")
             start_adventure()
 def leave_now_or_later2(num_teammates, loadout):
-    print("you have a choice to make you have found some good loot from the rocketer you just killed but only 2 extraction points are left do you want to leave now or risk it and keep looting?")
+    print("you have a choice to make you have found some good loot 2 extraction points are left do you want to leave now or risk it and keep looting?")
     print("1. leave the area now and head for the nearest extraction point")
     print("2. stay in the area and keep looting, but there is a chance that you might run into other players or arcs and might not get to the extraction point in time")
     choice = input("> ")
@@ -468,14 +473,213 @@ def leave_now_or_later2(num_teammates, loadout):
         print("invalid choice, please try again")
         leave_now_or_later2(num_teammates, loadout)
 def extraction_outcome2(num_teammates, loadout):
+    print("you have made it to the extraction point and you are waiting for the extraction to arrive, but you see a player running towards you, they are being chased by arcs, do you want to fight them or see if they are friendly and help them?")
+    print("1. fight the player")
+    print("2. see if the player is friendly and help them")
+    choice = input("> ")
+    if choice == "1":
+        print("you decide to fight the player!")
+        fight_outcome3(num_teammates, loadout)
+    elif choice == "2":
+        print("you decide to see if the player is friendly!")
+        friendly_outcome1(num_teammates, loadout)
+    else:
+        print("invalid choice, please try again")
+        extraction_outcome2(num_teammates, loadout)
+def friendly_outcome1(num_teammates, loadout):
+    print("you approach the player and you ask if they are friendly, they respond by saying that they are friendly and they need help defending the extraction point from the arcs, do you want to help them or do you want to fight them?")
+    print("1. help the player defend the extraction point from the arcs")
+    print("2. fight the player")
+    choice = input("> ")
+    if choice == "1":
+        print("you decide to help the player defend the extraction point from the arcs!")
+        print("you and the player work together to defend the extraction point from the arcs as you are about to leave the player kills you and takes all of your loot, better luck next time! Do you want to play again?")
+        print("1. yes")
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
+    elif choice == "2":
+        print("you decide to fight the player!")
+        fight_outcome3(num_teammates, loadout)
+    else:
+        print("invalid choice, please try again")
+        friendly_outcome1(num_teammates, loadout)
+def fight_outcome3(num_teammates, loadout):
+        # Determine if loadout is custom or random
+    is_custom = "ferro 2" in loadout or "osprey" in loadout or "anvil 2" in loadout
+        
+    if is_custom:
+            # Custom loadout randomizer for fight (sneak)
+        if num_teammates == 0:
+            outcomes = ["win", "win", "lose", "lose"]
+        elif num_teammates == 1:
+            outcomes = ["win1", "win", "lose", "lose"]
+        elif num_teammates == 2:
+            outcomes = ["win", "win1", "win", "lose"]
+        else:
+            outcomes = ["win", "win1", "win", "lose"]  # default
+    else:
+            # Free loadout randomizer for fight (sneak)
+        if num_teammates == 0:
+            outcomes = ["win", "lose", "lose", "lose"]
+        elif num_teammates == 1:
+            outcomes = ["win1", "lose", "lose", "lose"]
+        elif num_teammates == 2:
+            outcomes = ["win", "win1", "lose", "lose"]
+        else:
+            outcomes = ["win", "win1", "win", "lose"]  # default
+        
+    result = random.choice(outcomes)
+    if result == "win":
+        print("you have won the fight and you have looted the player, you end up finding some good loot and your inventory is now full!")
+        fight_arc_or_leave(num_teammates, loadout)
+    elif result == "win1":
+        print("you have won the fight but you got downed in the process, your teammate was able to finish off the player and revive you, you end up finding some good loot and your inventory is now full!")
+        fight_arc_or_leave(num_teammates, loadout)
+    elif result == "lose":
+        print("you have lost the fight and you have been killed by the player, better luck next time!")
+        print("you have lost the game, better luck next time! Do you want to play again?")
+        print("1. yes")     
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
+def fight_arc_or_leave(num_teammates, loadout):
+    print("after the fight you see that there are arcs coming towards you, do you want to fight the arcs or try to leave the area?")
+    print("1. fight the arcs")
+    print("2. extract")
+    choice = input("> ")
+    if choice == "1":
+        print("you decide to fight the arcs!")
+        fight_arcs(num_teammates, loadout)
+    elif choice == "2":
+        print("you decide to extract!")
+        print("you have successfully extracted with your loot, congratulations on winning the game! Do you want to play again?")
+        print("1. yes")
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
+    else:
+        print("invalid choice, please try again")
+        fight_arc_or_leave(num_teammates, loadout)
 
+def fight_arcs(num_teammates, loadout):
+        # Determine if loadout is custom or random
+    is_custom = "ferro 2" in loadout or "osprey" in loadout or "anvil 2" in loadout
+        
+    if is_custom:
+            # Custom loadout randomizer for fight (sneak)
+        if num_teammates == 0:
+            outcomes = ["win", "lose", "lose", "lose"]
+        elif num_teammates == 1:
+            outcomes = ["win", "win1", "lose", "lose"]
+        elif num_teammates == 2:
+            outcomes = ["win", "win", "win1", "lose"]
+        else:
+            outcomes = ["win1", "win", "win", "lose"]  # default
+    else:
+            # Free loadout randomizer for fight (sneak)
+        if num_teammates == 0:
+            outcomes = ["win", "lose", "lose", "lose"]
+        elif num_teammates == 1:
+            outcomes = ["win1", "lose", "lose", "lose"]
+        elif num_teammates == 2:
+            outcomes = ["win", "win1", "lose", "lose"]
+        else:
+            outcomes = ["win", "win1", "win", "lose"]  # default
+        
+    result = random.choice(outcomes)
+    if result == "win":
+        print("you have won the fight and you have looted the arcs, you end up finding some good loot and your inventory is now full and you are overencumbered!")
+        print("you now extract successfully with your loot, congratulations on winning the game! Do you want to play again?")
+        print("1. yes")
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
+    elif result == "win1":
+        print("you have won the fight but you got downed in the process, your teammate was able to finish off the arcs and revive you, you end up finding some good loot and your inventory is now full!")
+        print("you now extract successfully with your loot, congratulations on winning the game! Do you want to play again?")
+        print("1. yes")
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
+    elif result == "lose":
+        print("you have lost the fight and you have been killed by the arcs, better luck next time!")
+        print("Do you want to play again?")
+        print("1. yes")     
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
 
-def west_village(num_teammates, loadout):
-    print("You chose west village. This area is under development. Better luck next time!")
-    
+def loot_houses(num_teammates, loadout):
+    print("you are heading towards the loot houses, you see a player running towards you, do you want to fight them or run away?")
+    print("1. fight the player")
+    print("2. run away")
+    choice = input("> ")
+    if choice == "1":
+        print("you have chosen to fight the player")
+        fight_player(num_teammates, loadout)
+    elif choice == "2":
+        print("you have chosen to run away")
+        print("you run away and you find another loot spot!")
+        print("you find some good loot and you are now ready to head to the extraction point!")
+        leave_now_or_later2(num_teammates, loadout)
+    else:
+        print("invalid choice, please try again")
+        loot_houses(num_teammates, loadout)
 
-def old_town(num_teammates, loadout):
-    print("You chose old town. This area is under development. Better luck next time!")
+def fight_player(num_teammates, loadout):
+        # Determine if loadout is custom or random
+    is_custom = "ferro 2" in loadout or "osprey" in loadout or "anvil 2" in loadout
+        
+    if is_custom:
+            # Custom loadout randomizer for fight (sneak)
+        if num_teammates == 0:
+            outcomes = ["win", "lose", "lose", "lose"]
+        elif num_teammates == 1:
+            outcomes = ["win1", "win", "lose", "lose"]
+        elif num_teammates == 2:
+            outcomes = ["win", "win1", "win", "lose"]
+        else:
+            outcomes = ["win", "win1", "win", "lose"]  # default
+    else:
+            # Free loadout randomizer for fight (sneak)
+        if num_teammates == 0:
+            outcomes = ["win", "lose", "lose", "lose"]
+        elif num_teammates == 1:
+            outcomes = ["win1", "lose", "lose", "lose"]
+        elif num_teammates == 2:
+            outcomes = ["win", "win1", "lose", "lose"]
+        else:
+            outcomes = ["win", "win1", "win", "lose"]  # default
+        
+    result = random.choice(outcomes)
+    if result == "win":
+        print("you have won the fight and you have looted the player, you end up finding some good loot!")
+        leave_now_or_later2(num_teammates, loadout)
+    elif result == "win1":
+        print("you have won the fight but you got downed in the process, your teammate was able to finish off the player and revive you, you end up finding some good loot!")
+        leave_now_or_later2(num_teammates, loadout)
+    elif result == "lose":
+        print("you have lost the fight and you have been killed by the player, better luck next time!")
+        print("you have lost the game, better luck next time! Do you want to play again?")
+        print("1. yes")     
+        print("2. no")
+        choice = input("> ")
+        if choice == "1":
+            print("you have chosen to play again")
+            start_adventure()
 
 def west_village(num_teammates, loadout):
     print("You chose west village. This area is under development. Better luck next time!")
