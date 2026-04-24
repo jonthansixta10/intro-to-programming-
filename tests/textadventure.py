@@ -125,6 +125,15 @@ def choose_map(num_teammates, event_type, loadout=None):
         else:
             print("invalid choice, please try again")
             choose_map(num_teammates, event_type, loadout)
+
+
+
+
+
+
+
+
+# the full code of the buried city map gameplay
 def buried_city_hurricane(num_teammates, loadout):
     print("you have entered the buried city map for the hurricane event")
     print("good luck!")
@@ -680,6 +689,21 @@ def fight_player(num_teammates, loadout):
         if choice == "1":
             print("you have chosen to play again")
             start_adventure()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def west_village(num_teammates, loadout):
     print("You chose west village. This area is under development. Better luck next time!")
